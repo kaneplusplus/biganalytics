@@ -1,0 +1,35 @@
+####################################################################
+# configure for package synchronicity
+# John W. Emerson and Michael Kane
+#
+# Sun Studio toolchain not completely BOOST-compatible (the
+# fault of BOOST, not R-Project).
+# Hopefully BOOST will catch up, soon.
+
+FLAGS="PKG_CPPFLAGS=-I../include"
+LIBS=""
+
+echo -n "  checking for Sun Studio compiler..."
+CC=`${R_HOME}/bin/R CMD config CC`
+cmd=`echo $CC | grep -E 'suncc'`
+if test -n "$cmd"; then
+  echo "yes"
+  echo "  ERROR: BOOST is not fully Sun Studio compatible as of 6/1/2010."
+else
+  echo "no"
+fi
+
+echo -n "  checking for OS..."
+if test `uname` = "Linux" ; then
+  echo "Linux"
+  FLAGS="${FLAGS} -DLINUX"
+  LIBS="PKG_LIBS=-lrt"
+elif test `uname` = "SunOS" ; then
+  echo "Solaris"
+  LIBS="PKG_LIBS=-lrt"
+else
+  echo "Other:" `uname`
+fi
+
+echo "${FLAGS}" > src/Makevars
+echo "${LIBS}" >> src/Makevars

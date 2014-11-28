@@ -1,0 +1,13 @@
+####################################################################
+# configure for package biganalytics
+# John W. Emerson and Michael Kane
+#
+# Sun Studio toolchain not completely BOOST-compatible (the
+# fault of BOOST, not R-Project).
+# Hopefully BOOST will catch up, soon.
+
+FLAGS="PKG_CPPFLAGS=-I../include"
+LIBS=""
+
+echo "${FLAGS}" > src/Makevars
+echo "${LIBS}" >> src/Makevars

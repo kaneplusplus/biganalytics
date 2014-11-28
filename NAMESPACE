@@ -1,0 +1,25 @@
+import(methods,bigmemory)
+export(
+  bigkmeans,
+  binit,
+  biglm.big.matrix, 
+  bigglm.big.matrix, 
+  colmin,
+  min,
+  colmax,
+  max,
+  colprod,
+  prod,
+  colsum,
+  sum,
+  colrange,
+  range,
+  colmean,
+  mean,
+  colvar,
+  colsd,
+  colna,
+  summary,
+  apply)
+useDynLib(biganalytics)
+
