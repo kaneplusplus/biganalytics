@@ -175,8 +175,8 @@ SEXP kmeansMatrixCosine(MatrixType x, index_type n, index_type m,
 
     double temp;
     vector<double> d(k);                        // Vector of distances, internal only.
-    vector<double> temp2(k);
-    vector<vector<double> > tempcent(m, temp2); // For copy of global centroids k x m
+    vector<double> temp1(k);
+    vector<vector<double> > tempcent(m, temp1); // For copy of global centroids k x m
 
     // At this point I can use [][] to access things, with ss[0][cl]
     // being used for the vectors, for example.
@@ -216,8 +216,7 @@ SEXP kmeansMatrixCosine(MatrixType x, index_type n, index_type m,
         sum_of_cent[cl] += tempcent[col][cl] / clustsizes[0][cl];
     }
 
-    vector<double> temp1(k);
-    vector< vector<double> > normalized_cent(m, temp1);
+    vector< vector<double> > normalized_cent(m, vector<double>(k, 0));
     for (int i=0;i<k;i++) {
         for (int j=0;j<m;j++) {
             normalized_cent[j][i] = cent[j][i] / sum_of_cent[i];

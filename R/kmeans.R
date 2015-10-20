@@ -51,6 +51,8 @@ bigkmeans <- function(x, centers, iter.max = 10, nstart = 1, dist='euclid') {
   # A function for aggregating results as foreach is running, to avoid
   # memory overhead.
   choosebest <- function(a, b) {
+    if (!is.na(sum(a$withinss)) & is.na(sum(b$withinss))) return(a)
+    else if (is.na(sum(a$withinss)) & !is.na(sum(b$withinss))) return(b)
     if ( sum(a$withinss) < sum(b$withinss) ) {
       return(a)
     } else {
