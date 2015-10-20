@@ -19,7 +19,7 @@ providing gains in speed and memory-efficiency.
 \tabular{ll}{
 Package: \tab biganalytics\cr
 Type: \tab Package\cr
-Version: \tab 1.1.3\cr
+Version: \tab 1.1.4\cr
 Date: \tab 2012-09-08\cr
 License: \tab LGPL-3 | Apache License 2.0\cr
 Copyright: \tab (C) 2014 John W. Emerson and Michael J. Kane\cr

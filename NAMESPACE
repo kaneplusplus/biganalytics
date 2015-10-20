@@ -1,4 +1,4 @@
-import(methods,bigmemory)
+import(methods,bigmemory, foreach, biglm)
 export(
   bigkmeans,
   binit,
