@@ -119,7 +119,7 @@ bigkmeans <- function(x, centers, iter.max = 10, nstart = 1, dist='euclid') {
   # Do the work, possibly in parallel with nstart>1 and a registered
   # parallel backend.
   ans <- foreach(cen=centers, .combine="choosebest", 
-                 .packages=c("bigmemory", "biganalytics") %dopar% {
+                 .packages=c("bigmemory", "biganalytics")) %dopar% {
     center <- big.matrix(nrow(cen), ncol(cen), type="double")
     center[,] <- cen
     clust <- big.matrix(nr, 1, type="integer")
