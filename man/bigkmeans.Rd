@@ -77,9 +77,9 @@ An object of class \code{kmeans}, just as produced by \code{\link{kmeans}}.
 
   library(bigmemory)
 
-  x <- big.matrix(100000, 3, init=0, type="double")
-  x[seq(1,100000,by=2),] <- rnorm(150000)
-  x[seq(2,100000,by=2),] <- rnorm(150000, 5, 1)
+  x <- big.matrix(100, 3, init=0, type="double")
+  x[seq(1,100,by=2),] <- rnorm(3*50)
+  x[seq(2,100,by=2),] <- rnorm(3*50, 100, 1)
   head(x)
   ans <- bigkmeans(x, 1)              # One cluster isn't always allowed
                                       # but is convenient.
