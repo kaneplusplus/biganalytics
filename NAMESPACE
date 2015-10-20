@@ -1,4 +1,5 @@
 import(methods,bigmemory, foreach, biglm)
+importFrom("stats", "update")
 export(
   bigkmeans,
   binit,

@@ -1,5 +1,5 @@
 Package: biganalytics
-Version: 1.1.7
+Version: 1.1.9
 Date: 2015-10-20
 Title: Utilities for 'big.matrix' Objects from Package 'bigmemory'
 Author: John W. Emerson <jayemerson@gmail.com> and Michael J. Kane <kaneplusplus@gmail.com>
@@ -16,3 +16,4 @@ License: LGPL-3 | Apache License 2.0
 Copyright: (C) 2013 John W. Emerson and Michael J. Kane
 URL: http://www.bigmemory.org
 LazyLoad: yes
+Biarch: yes
