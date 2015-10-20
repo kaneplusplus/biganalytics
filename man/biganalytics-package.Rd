@@ -19,10 +19,10 @@ providing gains in speed and memory-efficiency.
 \tabular{ll}{
 Package: \tab biganalytics\cr
 Type: \tab Package\cr
-Version: \tab 1.1.5\cr
+Version: \tab 1.1.6\cr
 Date: \tab 2015-10-20\cr
 License: \tab LGPL-3 | Apache License 2.0\cr
-Copyright: \tab (C) 2014 John W. Emerson and Michael J. Kane\cr
+Copyright: \tab (C) 2015 John W. Emerson and Michael J. Kane\cr
 URL: \tab http://www.bigmemory.org\cr
 LazyLoad: \tab yes\cr
 }
