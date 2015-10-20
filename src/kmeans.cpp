@@ -289,95 +289,97 @@ extern "C"
 {
 
 SEXP kmeansBigMatrix(SEXP x, SEXP cen, SEXP clust, SEXP clustsizes,
-                     SEXP wss, SEXP itermax, int *dist)
+                     SEXP wss, SEXP itermax, SEXP dist)
 {
   BigMatrix *pMat =  reinterpret_cast<BigMatrix*>(R_ExternalPtrAddr(x));
-  int dist_calc = *dist;
-  if (pMat->separated_columns())
+  int dist_calc = INTEGER_DATA(dist)[0];
+  if (dist_calc == 0)
   {
-    switch (pMat->matrix_type())
+    if (pMat->separated_columns())
     {
-      case 1:
-          if (dist_calc==0) {
-              return kmeansMatrixEuclid<char>(SepMatrixAccessor<char>(*pMat),
-                      pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
-          } else {
-              return kmeansMatrixCosine<char>(SepMatrixAccessor<char>(*pMat),
-                      pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
-          }
-      case 2:
-          if (dist_calc==0) {
-              return kmeansMatrixEuclid<short>(SepMatrixAccessor<short>(*pMat),
-                      pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
-          } else {
-              return kmeansMatrixCosine<short>(SepMatrixAccessor<short>(*pMat),
-                      pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
-          }
-      case 4:
-          if (dist_calc==0) {
-              return kmeansMatrixEuclid<int>(SepMatrixAccessor<int>(*pMat),
-                      pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
-          } else {
-              return kmeansMatrixCosine<int>(SepMatrixAccessor<int>(*pMat),
-                      pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
-          }
-      case 8:
-          if (dist_calc==0) {
-              return kmeansMatrixEuclid<double>(SepMatrixAccessor<double>(*pMat),
-                      pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
-          } else {
-              return kmeansMatrixCosine<double>(SepMatrixAccessor<double>(*pMat),
-                      pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
-          }
+      switch (pMat->matrix_type())
+      {
+        case 1:
+          return kmeansMatrixEuclid<char>(SepMatrixAccessor<char>(*pMat),
+            pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
+        case 2:
+          return kmeansMatrixEuclid<short>(SepMatrixAccessor<short>(*pMat),
+            pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
+        case 4:
+          return kmeansMatrixEuclid<int>(SepMatrixAccessor<int>(*pMat),
+            pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
+        case 8:
+          return kmeansMatrixEuclid<double>(SepMatrixAccessor<double>(*pMat),
+            pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
+      }
+    }
+    else
+    {
+      switch (pMat->matrix_type())
+      {
+        case 1:
+          return kmeansMatrixEuclid<char>(MatrixAccessor<char>(*pMat),
+            pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
+        case 2:
+          return kmeansMatrixEuclid<short>(MatrixAccessor<short>(*pMat),
+            pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
+        case 4:
+          return kmeansMatrixEuclid<int>(MatrixAccessor<int>(*pMat),
+            pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
+        case 8:
+          return kmeansMatrixEuclid<double>(MatrixAccessor<double>(*pMat),
+            pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
+      }
     }
   }
   else
   {
-    switch (pMat->matrix_type())
+    if (pMat->separated_columns())
     {
-      case 1:
-          if (dist_calc==0) {
-              return kmeansMatrixEuclid<char>(MatrixAccessor<char>(*pMat),
-                      pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
-          } else {
-              return kmeansMatrixCosine<char>(MatrixAccessor<char>(*pMat),
-                      pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
-          }
-      case 2:
-          if (dist_calc==0) {
-              return kmeansMatrixEuclid<short>(MatrixAccessor<short>(*pMat),
-                      pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
-          } else {
-              return kmeansMatrixCosine<short>(MatrixAccessor<short>(*pMat),
-                      pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
-          }
-      case 4:
-          if (dist_calc==0) {
-              return kmeansMatrixEuclid<int>(MatrixAccessor<int>(*pMat),
-                      pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
-          } else {
-              return kmeansMatrixCosine<int>(MatrixAccessor<int>(*pMat),
-                      pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
-          }
-      case 8:
-          if (dist_calc==0) {
-              return kmeansMatrixEuclid<double>(MatrixAccessor<double>(*pMat),
-                      pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
-          } else {
-              return kmeansMatrixCosine<double>(MatrixAccessor<double>(*pMat),
-                      pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
-          }
+      switch (pMat->matrix_type())
+      {
+        case 1:
+          return kmeansMatrixCosine<char>(SepMatrixAccessor<char>(*pMat),
+            pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
+        case 2:
+          return kmeansMatrixCosine<short>(SepMatrixAccessor<short>(*pMat),
+            pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
+        case 4:
+          return kmeansMatrixCosine<int>(SepMatrixAccessor<int>(*pMat),
+            pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
+        case 8:
+           return kmeansMatrixCosine<double>(SepMatrixAccessor<double>(*pMat),
+            pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
+      }
+    }
+    else
+    {
+      switch (pMat->matrix_type())
+      {
+        case 1:
+          return kmeansMatrixCosine<char>(MatrixAccessor<char>(*pMat),
+            pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
+        case 2:
+          return kmeansMatrixCosine<short>(MatrixAccessor<short>(*pMat),
+            pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
+        case 4:
+          return kmeansMatrixCosine<int>(MatrixAccessor<int>(*pMat),
+            pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
+        case 8:
+           return kmeansMatrixCosine<double>(MatrixAccessor<double>(*pMat),
+            pMat->nrow(), pMat->ncol(), cen, clust, clustsizes, wss, itermax);
+      }
     }
   }
   return R_NilValue;
 }
 
 SEXP kmeansRIntMatrix(SEXP x, SEXP cen, SEXP clust, SEXP clustsizes,
-                      SEXP wss, SEXP itermax, int *dist)
+                      SEXP wss, SEXP itermax, SEXP dist)
 {
   index_type numRows = static_cast<index_type>(nrows(x));
   index_type numCols = static_cast<index_type>(ncols(x));
-  int dist_calc = *dist;
+  int dist_calc = INTEGER_DATA(dist)[0];
   MatrixAccessor<int> mat(INTEGER_DATA(x), numRows);
     if (dist_calc==0) {
         return kmeansMatrixEuclid<int, MatrixAccessor<int> >(mat,
@@ -389,14 +391,14 @@ SEXP kmeansRIntMatrix(SEXP x, SEXP cen, SEXP clust, SEXP clustsizes,
 }
 
 SEXP kmeansRNumericMatrix(SEXP x, SEXP cen, SEXP clust, SEXP clustsizes,
-                          SEXP wss, SEXP itermax, int *dist)
+                          SEXP wss, SEXP itermax, SEXP dist)
 {
   index_type numRows = static_cast<index_type>(nrows(x));
   index_type numCols = static_cast<index_type>(ncols(x));
-  int dist_calc = *dist;
+  int dist_calc = INTEGER_DATA(dist)[0];
   MatrixAccessor<double> mat(NUMERIC_DATA(x), numRows);
     if (dist_calc==0) {
-        return kmeansMatrixEuclid<double, MatrixAccessor<double> >(mat,
+       return kmeansMatrixEuclid<double, MatrixAccessor<double> >(mat,
                 numRows, numCols, cen, clust, clustsizes, wss, itermax);
     } else {
         return kmeansMatrixCosine<double, MatrixAccessor<double> >(mat,

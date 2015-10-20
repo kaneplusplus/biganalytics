@@ -14,7 +14,7 @@ bigkmeans(x, centers, iter.max=10, nstart=1, dist="euclid")
   \item{centers}{a scalar denoting the number of clusters, or for k clusters, a k by \code{ncol(x)} matrix.}
   \item{iter.max}{the maximum number of iterations.}
   \item{nstart}{number of random starts, to be done in parallel if there is a registered backend (see below).}
-  \item{dist}{the distance function. Can be "euclid" or "cosine".}
+  \item{dist}{the distance function. Can be "euclid" or "cosine". Note that "cosine" distance is currently not working.}
 }
 \details{
 The real benefit is the lack of memory overhead compared to the standard
@@ -81,13 +81,13 @@ An object of class \code{kmeans}, just as produced by \code{\link{kmeans}}.
   x[seq(1,100,by=2),] <- rnorm(3*50)
   x[seq(2,100,by=2),] <- rnorm(3*50, 100, 1)
   head(x)
-  ans <- bigkmeans(x, 1, dist="cosine") # One cluster isn't always allowed
+  ans <- bigkmeans(x, 1) # One cluster isn't always allowed
                                         # but is convenient.
   ans$centers
   ans$withinss
   ans$size
   apply(x, 2, mean)
-  ans <- bigkmeans(x, 2, nstart=5, dist="cosine") # Sequential multiple starts.
+  ans <- bigkmeans(x, 2, nstart=5) # Sequential multiple starts.
   class(ans)
   names(ans)
   ans$centers
@@ -102,7 +102,7 @@ An object of class \code{kmeans}, just as produced by \code{\link{kmeans}}.
     library(doSNOW)
     cl <- makeCluster(3, type="SOCK")
     registerDoSNOW(cl)
-    ans <- bigkmeans(x, 2, nstart=5, dist="cosine")
+    ans <- bigkmeans(x, 2, nstart=5) 
   }
 
   # Both the following are run iteratively, but with less memory overhead
@@ -110,7 +110,7 @@ An object of class \code{kmeans}, just as produced by \code{\link{kmeans}}.
   # fair, because the big.matrix objects aren't reflected in the gc()
   # summary.  But the savings is there.
   gc(reset=TRUE)
-  time.new <- system.time(print(bigkmeans(x,2,nstart=5, dist="cosine")$centers))
+  time.new <- system.time(print(bigkmeans(x,2,nstart=5)$centers))
   gc()
   y <- x[,]
   rm(x)

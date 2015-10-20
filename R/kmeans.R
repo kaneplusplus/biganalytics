@@ -10,6 +10,7 @@ bigkmeans <- function(x, centers, iter.max = 10, nstart = 1, dist='euclid') {
       dist_calc = 0
   } else if (dist=='cosine') {
       dist_calc = 1
+      warning("'cosine' distance is not currently working")
   } else {
       stop("'euclid' or 'cosine' are valid. Check your argument.\n")
   }
@@ -132,18 +133,18 @@ bigkmeans <- function(x, centers, iter.max = 10, nstart = 1, dist='euclid') {
       if (mattype==4) {
         res <- .Call("kmeansRIntMatrix", x,
                      center@address, clust@address, clustsizes@address,
-                     wss@address, as.integer(iter.max), dist_calc)
+                     wss@address, as.integer(iter.max), as.integer(dist_calc))
       } else {
         res <- .Call("kmeansRNumericMatrix", x,
                      center@address, clust@address, clustsizes@address,
-                     wss@address, as.integer(iter.max), dist_calc)
+                     wss@address, as.integer(iter.max), as.integer(dist_calc))
       }
     } else {
       # .Call with the big.matrix
       x <- attach.big.matrix(xdesc)
       res <- .Call("kmeansBigMatrix", x@address,
                    center@address, clust@address, clustsizes@address,
-                   wss@address, as.integer(iter.max), dist_calc)
+                   wss@address, as.integer(iter.max), as.integer(dist_calc))
     }
 
     temp <- list(cluster=clust[,],
