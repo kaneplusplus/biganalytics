@@ -1,5 +1,5 @@
 Package: biganalytics
-Version: 1.1.9
+Version: 1.1.10
 Date: 2015-10-20
 Title: Utilities for 'big.matrix' Objects from Package 'bigmemory'
 Author: John W. Emerson <jayemerson@gmail.com> and Michael J. Kane <kaneplusplus@gmail.com>
@@ -7,7 +7,7 @@ Maintainer: Michael J. Kane <bigmemoryauthors@gmail.com>
 Contact: Jay and Mike <bigmemoryauthors@gmail.com>
 Depends: methods, stats, utils, bigmemory (>= 4.0.0), foreach, biglm
 LinkingTo: BH, bigmemory
-Description: This package extends the bigmemory package with various analytics.
+Description: Extend the 'bigmemory' package with various analytics.
   Functions 'bigkmeans' and 'binit' may also be used with native R objects. 
   For 'tapply'-like functions, the bigtabulate package may also be helpful.
   For linear algebra support, see 'bigalgebra'.  For mutex (locking) support
