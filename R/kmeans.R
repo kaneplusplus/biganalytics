@@ -1,7 +1,6 @@
 
 bigkmeans <- function(x, centers, iter.max = 10, nstart = 1, dist='euclid') {
 
-  require(foreach)
   if (is.null(getDoParName())) {
     registerDoSEQ() # A little hack to avoid the foreach warning 1st time.
   }
@@ -119,12 +118,8 @@ bigkmeans <- function(x, centers, iter.max = 10, nstart = 1, dist='euclid') {
 
   # Do the work, possibly in parallel with nstart>1 and a registered
   # parallel backend.
-  ans <- foreach(cen=centers, .combine="choosebest") %dopar% {
-
-    # Note that at this point, we're on a worker; I use a local big.matrix
-    # object for centers to make the C++ code easier [][] matrix notation.
-    require(bigmemory)
-    require(biganalytics)
+  ans <- foreach(cen=centers, .combine="choosebest", 
+                 .packages=c("bigmemory", "biganalytics") %dopar% {
     center <- big.matrix(nrow(cen), ncol(cen), type="double")
     center[,] <- cen
     clust <- big.matrix(nr, 1, type="integer")

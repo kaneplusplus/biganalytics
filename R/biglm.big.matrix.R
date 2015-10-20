@@ -110,7 +110,6 @@ CreateNextDataFrameGenerator = function( formula, data, chunksize, fc,
 bigglm.big.matrix = function( formula, data, chunksize=NULL, ..., fc=NULL,
   getNextChunkFunc=NULL)
 {
-  require('biglm')
   getNextDataFrame = CreateNextDataFrameGenerator(formula, data, 
     chunksize, fc, getNextChunkFunc, ...)
   return(bigglm(formula=formula, data=getNextDataFrame, chunksize=chunksize,
@@ -121,7 +120,6 @@ bigglm.big.matrix = function( formula, data, chunksize=NULL, ..., fc=NULL,
 biglm.big.matrix = function( formula, data, chunksize=NULL, ..., fc=NULL,
   getNextChunkFunc=NULL)
 {
-  require('biglm')
   getNextDataFrame = CreateNextDataFrameGenerator(formula, data,
     chunksize, fc, getNextChunkFunc, ...)
   data = getNextDataFrame(FALSE)
