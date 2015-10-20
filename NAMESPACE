@@ -5,15 +5,10 @@ export(
   biglm.big.matrix, 
   bigglm.big.matrix, 
   colmin,
-  min,
   colmax,
-  max,
   colprod,
-  prod,
   colsum,
-  sum,
   colrange,
-  range,
   colmean,
   mean,
   colvar,
@@ -21,5 +16,10 @@ export(
   colna,
   summary,
   apply)
+exportMethods(min)
+exportMethods(max)
+exportMethods(prod)
+exportMethods(sum)
+exportMethods(range)
 useDynLib(biganalytics)
 

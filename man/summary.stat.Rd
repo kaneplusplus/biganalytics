@@ -3,15 +3,12 @@
 \alias{colmean,big.matrix-method}
 \alias{colmin}
 \alias{colmin,big.matrix-method}
-\alias{min}
 \alias{min,big.matrix-method}
 \alias{colmax}
 \alias{colmax,big.matrix-method}
-\alias{max}
 \alias{max,big.matrix-method}
 \alias{colrange}
 \alias{colrange,big.matrix-method}
-\alias{range}
 \alias{range,big.matrix-method}
 \alias{colvar}
 \alias{colvar,big.matrix-method}
@@ -19,11 +16,9 @@
 \alias{colsd,big.matrix-method}
 \alias{colprod}
 \alias{colprod,big.matrix-method}
-\alias{prod}
 \alias{prod,big.matrix-method}
 \alias{colsum}
 \alias{colsum,big.matrix-method}
-\alias{sum}
 \alias{sum,big.matrix-method}
 \alias{colna}
 \alias{colna,big.matrix-method}
@@ -39,17 +34,12 @@ These functions operate on columns of a
 \usage{
 colmean(x, cols, na.rm)
 colmin(x, cols, na.rm)
-min(x, \dots, na.rm)
 colmax(x, cols, na.rm)
-max(x, \dots, na.rm)
 colrange(x, cols, na.rm)
-range(x, \dots, na.rm)
 colvar(x, cols, na.rm)
 colsd(x, cols, na.rm)
 colsum(x, cols, na.rm)
-sum(x, \dots, na.rm)
 colprod(x, cols, na.rm)
-prod(x, \dots, na.rm)
 colna(x, cols)
 }
 \arguments{

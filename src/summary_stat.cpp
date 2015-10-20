@@ -363,25 +363,26 @@ Rboolean tvar(T *x, index_type n, double *value, Rboolean narm, T NA_VALUE)
 
 #define CALL_FUN(fun)                                                        \
   BigMatrix *pMat = (BigMatrix*)R_ExternalPtrAddr(bigMatrixAddr);            \
+  index_type colOffset=0;                                                    \
+  index_type rowOffset=0;                                                    \
+  index_type i=0;                                                            \
   if (pMat->separated_columns())                                             \
   {                                                                          \
     SepMatrixAccessor<dataT> Mat(*pMat);                                     \
-    index_type colOffset=pMat->col_offset();                                 \
-    index_type rowOffset=pMat->row_offset();                                 \
-    index_type i=0;                                                          \
+    colOffset=pMat->col_offset();                                            \
+    rowOffset=pMat->row_offset();                                            \
     for (i=0; i < nCols; ++i) {                                              \
-      fun(&Mat[(index_type)pCols[i]-1][0], pMat->nrow(), &pRet[i], \
+      fun(&Mat[(index_type)pCols[i]-1][0], pMat->nrow(), &pRet[i],           \
                   (Rboolean)LOGICAL_VALUE(narm), NA_VALUE);                  \
     }                                                                        \
   }                                                                          \
   else                                                                       \
   {                                                                          \
     MatrixAccessor<dataT> Mat(*pMat);                                        \
-    index_type i=0;                                                          \
-    index_type colOffset=pMat->col_offset();                                 \
-    index_type rowOffset=pMat->row_offset();                                 \
+    colOffset=pMat->col_offset();                                            \
+    rowOffset=pMat->row_offset();                                            \
     for (i=0; i < nCols; ++i) {                                              \
-      fun(&Mat[(index_type)pCols[i]-1][0], pMat->nrow(), &pRet[i], \
+      fun(&Mat[(index_type)pCols[i]-1][0], pMat->nrow(), &pRet[i],           \
                     (Rboolean)LOGICAL_VALUE(narm), NA_VALUE);                \
     }                                                                        \
   }
