@@ -1,0 +1,22 @@
+language: r
+sudo: required
+warnings_are_errors: true
+
+os:
+  - linux
+  - osx
+
+r_build_args: --no-build-vignettes --no-manual --no-resave-data
+r_check_args: --no-build-vignettes --no-manual
+
+r_binary_packages:
+  - BH
+  - bigmemory
+  - foreach
+  - biglm
+
+r_github_packages:
+  - jimhester/covr
+
+after_success:
+  - Rscript -e 'library(covr);coveralls()'
