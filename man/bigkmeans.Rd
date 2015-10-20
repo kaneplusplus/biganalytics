@@ -81,13 +81,13 @@ An object of class \code{kmeans}, just as produced by \code{\link{kmeans}}.
   x[seq(1,100,by=2),] <- rnorm(3*50)
   x[seq(2,100,by=2),] <- rnorm(3*50, 100, 1)
   head(x)
-  ans <- bigkmeans(x, 1)              # One cluster isn't always allowed
-                                      # but is convenient.
+  ans <- bigkmeans(x, 1, dist="cosine") # One cluster isn't always allowed
+                                        # but is convenient.
   ans$centers
   ans$withinss
   ans$size
   apply(x, 2, mean)
-  ans <- bigkmeans(x, 2, nstart=5)    # Sequential multiple starts.
+  ans <- bigkmeans(x, 2, nstart=5, dist="cosine") # Sequential multiple starts.
   class(ans)
   names(ans)
   ans$centers
@@ -102,7 +102,7 @@ An object of class \code{kmeans}, just as produced by \code{\link{kmeans}}.
     library(doSNOW)
     cl <- makeCluster(3, type="SOCK")
     registerDoSNOW(cl)
-    ans <- bigkmeans(x, 2, nstart=5)
+    ans <- bigkmeans(x, 2, nstart=5, dist="cosine")
   }
 
   # Both the following are run iteratively, but with less memory overhead
@@ -110,7 +110,7 @@ An object of class \code{kmeans}, just as produced by \code{\link{kmeans}}.
   # fair, because the big.matrix objects aren't reflected in the gc()
   # summary.  But the savings is there.
   gc(reset=TRUE)
-  time.new <- system.time(print(bigkmeans(x, 2, nstart=5)$centers))
+  time.new <- system.time(print(bigkmeans(x,2,nstart=5, dist="cosine")$centers))
   gc()
   y <- x[,]
   rm(x)
