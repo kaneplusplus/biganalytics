@@ -27,15 +27,14 @@
 #include <iostream>
 #include <algorithm>
 
+#include <Rcpp.h>
+
 #include "bigmemory/BigMatrix.h"
 #include "bigmemory/MatrixAccessor.hpp"
 #include "bigmemory/bigmemoryDefines.h"
 #include "bigmemory/isna.hpp"
 
 #include <stdio.h>
-#include <R.h>
-#include <Rinternals.h>
-#include <Rdefines.h>
 #include <stdlib.h>
 #include <sys/types.h>
 
@@ -47,10 +46,10 @@ SEXP kmeansMatrixEuclid(MatrixType x, index_type n, index_type m,
 
   index_type j, col, nchange;
 
-  int maxiters = INTEGER_VALUE(itermax);
+  int maxiters = Rf_asInteger(itermax);
   SEXP Riter;
-  PROTECT(Riter = NEW_INTEGER(1));
-  int *iter = INTEGER_DATA(Riter);
+  Rf_protect(Riter = Rf_allocVector(INTSXP, 1));
+  int *iter = INTEGER(Riter);
   iter[0] = 0;
 
   BigMatrix *pcent = reinterpret_cast<BigMatrix*>(R_ExternalPtrAddr(pcen));
@@ -141,7 +140,7 @@ SEXP kmeansMatrixEuclid(MatrixType x, index_type n, index_type m,
     }
   }
 
-  UNPROTECT(1);
+  Rf_unprotect(1);
   return(Riter);
 
 }
@@ -154,10 +153,10 @@ SEXP kmeansMatrixCosine(MatrixType x, index_type n, index_type m,
 
     index_type j, col, nchange;
 
-    int maxiters = INTEGER_VALUE(itermax);
+    int maxiters = Rf_asInteger(itermax);
     SEXP Riter;
-    PROTECT(Riter = NEW_INTEGER(1));
-    int *iter = INTEGER_DATA(Riter);
+    Rf_protect(Riter = Rf_allocVector(INTSXP, 1));
+    int *iter = INTEGER(Riter);
     iter[0] = 0;
 
     BigMatrix *pcent = reinterpret_cast<BigMatrix*>(R_ExternalPtrAddr(pcen));
@@ -278,7 +277,7 @@ SEXP kmeansMatrixCosine(MatrixType x, index_type n, index_type m,
         }
     }
 
-    UNPROTECT(1);
+    Rf_unprotect(1);
     return(Riter);
 
 }
@@ -292,7 +291,7 @@ SEXP kmeansBigMatrix(SEXP x, SEXP cen, SEXP clust, SEXP clustsizes,
                      SEXP wss, SEXP itermax, SEXP dist)
 {
   BigMatrix *pMat =  reinterpret_cast<BigMatrix*>(R_ExternalPtrAddr(x));
-  int dist_calc = INTEGER_DATA(dist)[0];
+  int dist_calc = INTEGER(dist)[0];
   if (dist_calc == 0)
   {
     if (pMat->separated_columns())
@@ -377,10 +376,10 @@ SEXP kmeansBigMatrix(SEXP x, SEXP cen, SEXP clust, SEXP clustsizes,
 SEXP kmeansRIntMatrix(SEXP x, SEXP cen, SEXP clust, SEXP clustsizes,
                       SEXP wss, SEXP itermax, SEXP dist)
 {
-  index_type numRows = static_cast<index_type>(nrows(x));
-  index_type numCols = static_cast<index_type>(ncols(x));
-  int dist_calc = INTEGER_DATA(dist)[0];
-  MatrixAccessor<int> mat(INTEGER_DATA(x), numRows);
+  index_type numRows = static_cast<index_type>(Rf_nrows(x));
+  index_type numCols = static_cast<index_type>(Rf_ncols(x));
+  int dist_calc = INTEGER(dist)[0];
+  MatrixAccessor<int> mat(INTEGER(x), numRows);
     if (dist_calc==0) {
         return kmeansMatrixEuclid<int, MatrixAccessor<int> >(mat,
                 numRows, numCols, cen, clust, clustsizes, wss, itermax);
@@ -393,10 +392,10 @@ SEXP kmeansRIntMatrix(SEXP x, SEXP cen, SEXP clust, SEXP clustsizes,
 SEXP kmeansRNumericMatrix(SEXP x, SEXP cen, SEXP clust, SEXP clustsizes,
                           SEXP wss, SEXP itermax, SEXP dist)
 {
-  index_type numRows = static_cast<index_type>(nrows(x));
-  index_type numCols = static_cast<index_type>(ncols(x));
-  int dist_calc = INTEGER_DATA(dist)[0];
-  MatrixAccessor<double> mat(NUMERIC_DATA(x), numRows);
+  index_type numRows = static_cast<index_type>(Rf_nrows(x));
+  index_type numCols = static_cast<index_type>(Rf_ncols(x));
+  int dist_calc = INTEGER(dist)[0];
+  MatrixAccessor<double> mat(REAL(x), numRows);
     if (dist_calc==0) {
        return kmeansMatrixEuclid<double, MatrixAccessor<double> >(mat,
                 numRows, numCols, cen, clust, clustsizes, wss, itermax);

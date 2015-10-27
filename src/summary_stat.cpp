@@ -1,14 +1,15 @@
 
 #include <iostream> // hack to make sure we are using the right "length" 
                     // function
+
+#include <Rcpp.h>
+
 #include "bigmemory/BigMatrix.h"
 #include "bigmemory/MatrixAccessor.hpp"
 #include "bigmemory/bigmemoryDefines.h"
 #include "bigmemory/isna.hpp"
 
 #include <math.h>
-#include <R.h>
-#include <Rdefines.h>
 
 // ---------------------------------------------------------------------------
 // NEW
@@ -17,9 +18,9 @@
 // simple wrappers to facilitate our use of function templates.
 
 //SEXP NEW_INTEGERF(int i) { return(NEW_INTEGER(i)); }
-//SEXP NEW_NUMERICF(int i) { return(NEW_NUMERIC(i)); }
+//SEXP NEW_NUMERICF(int i) { return(Rf_allocVector(REALSXP, i)); }
 //int* INTEGER_DATAF(SEXP x) { return(INTEGER_DATA(x)); }
-//double* NUMERIC_DATAF(SEXP x) { return(NUMERIC_DATA(x)); }
+//double* NUMERIC_DATAF(SEXP x) { return(REAL(x)); }
 
 // These typedefs were needed in conjunction with the new functions, above,
 // to facilitate passing these functions as arguments to functions.  This is
@@ -369,7 +370,7 @@ Rboolean tvar(T *x, index_type n, double *value, Rboolean narm, T NA_VALUE)
     SepMatrixAccessor<dataT> Mat(*pMat);                                     \
     for (i=0; i < nCols; ++i) {                                              \
       fun(&Mat[(index_type)pCols[i]-1][0], pMat->nrow(), &pRet[i],           \
-                  (Rboolean)LOGICAL_VALUE(narm), NA_VALUE);                  \
+                  (Rboolean)Rf_asLogical(narm), NA_VALUE);                  \
     }                                                                        \
   }                                                                          \
   else                                                                       \
@@ -377,7 +378,7 @@ Rboolean tvar(T *x, index_type n, double *value, Rboolean narm, T NA_VALUE)
     MatrixAccessor<dataT> Mat(*pMat);                                        \
     for (i=0; i < nCols; ++i) {                                              \
       fun(&Mat[(index_type)pCols[i]-1][0], pMat->nrow(), &pRet[i],           \
-                    (Rboolean)LOGICAL_VALUE(narm), NA_VALUE);                \
+                    (Rboolean)Rf_asLogical(narm), NA_VALUE);                \
     }                                                                        \
   }
 
@@ -437,13 +438,21 @@ extern "C"
 
 #define mainsetup()                                              \
   SEXP ret = R_NilValue;                                         \
-  double *pCols = NUMERIC_DATA(col);                             \
-  index_type nCols = GET_LENGTH(col);                            \
-  int mt = INTEGER_VALUE(matType);
+  double *pCols = REAL(col);                             \
+  index_type nCols = Rf_length(col);                            \
+  int mt = Rf_asInteger(matType);
 
 #define casesetup(TYPE, NEW_TYPE, TYPE_DATA)                     \
-    ret = PROTECT(NEW_TYPE(nCols));                              \
+    ret = Rf_protect(NEW_TYPE(nCols));                              \
     TYPE *pRet = TYPE_DATA(ret);
+
+#define NEW_NUMERIC(n)  Rf_allocVector(REALSXP,n)
+
+#define NUMERIC_DATA(x)  REAL(x)
+
+#define NEW_INTEGER(n)  Rf_allocVector(INTSXP,n)
+
+#define INTEGER_DATA(x) INTEGER(x)
 
 SEXP CMinColmain(SEXP matType, SEXP bigMatrixAddr, SEXP col, SEXP narm)
 {
@@ -466,7 +475,7 @@ SEXP CMinColmain(SEXP matType, SEXP bigMatrixAddr, SEXP col, SEXP narm)
         CMinCol<double, double>(bigMatrixAddr, pRet, pCols, nCols, narm, NA_REAL);
       } break;
   }
-  UNPROTECT(1);
+  Rf_unprotect(1);
   return(ret);
 }
 
@@ -491,7 +500,7 @@ SEXP CMaxColmain(SEXP matType, SEXP bigMatrixAddr, SEXP col, SEXP narm)
         CMaxCol<double, double>(bigMatrixAddr, pRet, pCols, nCols, narm, NA_REAL);
       } break;
   }
-  UNPROTECT(1);
+  Rf_unprotect(1);
   return(ret);
 }
 
@@ -513,7 +522,7 @@ SEXP CSumColmain(SEXP matType, SEXP bigMatrixAddr, SEXP col, SEXP narm)
         CSumCol<double, double>(bigMatrixAddr, pRet, pCols, nCols, narm, NA_REAL);
       } break;
   }
-  UNPROTECT(1);
+  Rf_unprotect(1);
   return(ret);
 }
 
@@ -539,7 +548,7 @@ SEXP CProdColmain(SEXP matType, SEXP bigMatrixAddr, SEXP col, SEXP narm)
           NA_REAL);
       } break;
   }
-  UNPROTECT(1);
+  Rf_unprotect(1);
   return(ret);
 }
 
@@ -561,7 +570,7 @@ SEXP CMeanColmain(SEXP matType, SEXP bigMatrixAddr, SEXP col, SEXP narm)
         CMeanCol<double, double>(bigMatrixAddr, pRet, pCols, nCols, narm, NA_REAL);
       } break;
   }
-  UNPROTECT(1);
+  Rf_unprotect(1);
   return(ret);
 }
 
@@ -583,7 +592,7 @@ SEXP CVarColmain(SEXP matType, SEXP bigMatrixAddr, SEXP col, SEXP narm)
         CVarCol<double, double>(bigMatrixAddr, pRet, pCols, nCols, narm, NA_REAL);
       } break;
   }
-  UNPROTECT(1);
+  Rf_unprotect(1);
   return(ret);
 }
 

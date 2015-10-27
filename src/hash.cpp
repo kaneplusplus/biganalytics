@@ -1,16 +1,14 @@
+#include <Rcpp.h>
 #include "bigmemory/BigMatrix.h"
 #include "bigmemory/MatrixAccessor.hpp"
 #include "bigmemory/bigmemoryDefines.h"
 #include "bigmemory/isna.hpp"
 
-#include <R.h>
-#include <Rdefines.h>
-
 template<typename T, typename BMAccessorType>
 SEXP MatrixHashRanges( BigMatrix *pMat, SEXP selectColumn )
 {
   BMAccessorType mat(*pMat);
-  index_type sc = (index_type)NUMERIC_VALUE(selectColumn)-1+pMat->col_offset();
+  index_type sc = (index_type)Rf_asReal(selectColumn)-1+pMat->col_offset();
   if (pMat->nrow()==0) return(R_NilValue);
   int uniqueValCount=1;
   T lastVal = mat[sc][0+pMat->row_offset()];
@@ -23,8 +21,8 @@ SEXP MatrixHashRanges( BigMatrix *pMat, SEXP selectColumn )
       uniqueValCount += 1;
     }
   }
-  SEXP ret = PROTECT(NEW_INTEGER(uniqueValCount*2));
-  int *pRet = INTEGER_DATA(ret);
+  SEXP ret = Rf_protect(Rf_allocVector(INTSXP, uniqueValCount*2));
+  int *pRet = INTEGER(ret);
   int j=0;
   lastVal = mat[sc][0+pMat->row_offset()];
   pRet[j++]=1;
@@ -37,7 +35,7 @@ SEXP MatrixHashRanges( BigMatrix *pMat, SEXP selectColumn )
     }
   }
   pRet[uniqueValCount*2-1] = pMat->nrow();
-  UNPROTECT(1);
+  Rf_unprotect(1);
   return(ret);
 }
 
@@ -47,16 +45,16 @@ SEXP ColCountNA( BigMatrix *pMat, SEXP column )
 {
   typedef typename BMAccessorType::value_type value_type;
   BMAccessorType mat(*pMat);
-  index_type col = (index_type)NUMERIC_VALUE(column);
+  index_type col = (index_type)Rf_asReal(column);
   index_type i, counter;
   counter=0;
   for (i=0; i < pMat->nrow(); ++i)
   {
     if (isna(mat[col-1][i])) ++counter;
   }
-  SEXP ret = PROTECT(NEW_NUMERIC(1));
-  NUMERIC_DATA(ret)[0] = (double)counter;
-  UNPROTECT(1);
+  SEXP ret = Rf_protect(Rf_allocVector(REALSXP, 1));
+  REAL(ret)[0] = (double)counter;
+  Rf_unprotect(1);
   return(ret);
 }
 
@@ -90,10 +88,10 @@ int Ckmeans2(BigMatrix *pMat, SEXP centAddr, SEXP ssAddr,
   //double **clustsizes = (double**) pclustsizes->matrix();
   MatrixAccessor<double> clustsizes(*pclustsizes);
 
-  index_type n = (index_type) NUMERIC_VALUE(nn);        // Very unlikely to need index_type, but...
-  int k = INTEGER_VALUE(kk);                // Number of clusters
-  index_type m = (index_type) NUMERIC_VALUE(mm);        // columns of data
-  int maxiters = INTEGER_VALUE(mmaxiters); // maximum number of iterations
+  index_type n = (index_type) Rf_asReal(nn);        // Very unlikely to need index_type, but...
+  int k = Rf_asInteger(kk);                // Number of clusters
+  index_type m = (index_type) Rf_asReal(mm);        // columns of data
+  int maxiters = Rf_asInteger(mmaxiters); // maximum number of iterations
 
   int oldcluster, newcluster;           // just for ease of coding.
   int cl, bestcl;
@@ -109,10 +107,10 @@ int Ckmeans2(BigMatrix *pMat, SEXP centAddr, SEXP ssAddr,
 
   //char filename[10];
   //int junk;
-  //junk = sprintf(filename, "Cfile%d.txt", INTEGER_VALUE(ii));
+  //junk = sprintf(filename, "Cfile%d.txt", Rf_asInteger(ii));
   //ofstream outFile;
   //outFile.open(filename, ios::out);
-  //outFile << "This is node " << INTEGER_VALUE(ii) << endl;
+  //outFile << "This is node " << Rf_asInteger(ii) << endl;
   //outFile << "Before do: n, i, k, m, p, start:" <<
   //       n << ", " << i << ", " << k << ", " << m << ", " << p <<
   //       ", " << start << endl;
@@ -292,12 +290,12 @@ SEXP Ckmeans2main(SEXP matType,
                   SEXP clustAddr, SEXP clustsizesAddr,
                   SEXP nn, SEXP kk, SEXP mm, SEXP mmaxiters)
 {
-  SEXP ret = PROTECT(NEW_NUMERIC(1));
+  SEXP ret = Rf_protect(Rf_allocVector(REALSXP, 1));
   BigMatrix *pMat = (BigMatrix*)R_ExternalPtrAddr(bigMatrixAddr);
   int iter = 0;
   if (pMat->separated_columns())
   {
-    switch (INTEGER_VALUE(matType))
+    switch (Rf_asInteger(matType))
     {
       case 1:
         iter = Ckmeans2<char, SepMatrixAccessor<char> >(
@@ -323,7 +321,7 @@ SEXP Ckmeans2main(SEXP matType,
   }
   else
   {
-    switch (INTEGER_VALUE(matType))
+    switch (Rf_asInteger(matType))
     {
       case 1:
         iter = Ckmeans2<char, MatrixAccessor<char> >(
@@ -347,8 +345,8 @@ SEXP Ckmeans2main(SEXP matType,
         break;
     }
   }
-  NUMERIC_DATA(ret)[0] = (double)iter;
-  UNPROTECT(1);
+  REAL(ret)[0] = (double)iter;
+  Rf_unprotect(1);
   return ret;
 }
 */
