@@ -14,7 +14,7 @@ bigkmeans(x, centers, iter.max=10, nstart=1, dist="euclid")
   \item{centers}{a scalar denoting the number of clusters, or for k clusters, a k by \code{ncol(x)} matrix.}
   \item{iter.max}{the maximum number of iterations.}
   \item{nstart}{number of random starts, to be done in parallel if there is a registered backend (see below).}
-  \item{dist}{the distance function. Can be "euclid" or "cosine". Note that "cosine" distance is currently not working.}
+  \item{dist}{the distance function. Can be "euclid" or "cosine".}
 }
 \details{
 The real benefit is the lack of memory overhead compared to the standard

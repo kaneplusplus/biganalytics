@@ -10,7 +10,6 @@ bigkmeans <- function(x, centers, iter.max = 10, nstart = 1, dist='euclid') {
       dist_calc = 0
   } else if (dist=='cosine') {
       dist_calc = 1
-      warning("'cosine' distance is not currently working")
   } else {
       stop("'euclid' or 'cosine' are valid. Check your argument.\n")
   }
