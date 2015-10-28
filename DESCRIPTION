@@ -6,7 +6,7 @@ Author: John W. Emerson <jayemerson@gmail.com> and Michael J. Kane <kaneplusplus
 Maintainer: Michael J. Kane <bigmemoryauthors@gmail.com>
 Contact: Jay and Mike <bigmemoryauthors@gmail.com>
 Depends: methods, stats, utils, bigmemory (>= 4.0.0), foreach, biglm
-LinkingTo: Rcpp, bigmemory
+LinkingTo: Rcpp, bigmemory, BH
 Description: Extend the 'bigmemory' package with various analytics.
   Functions 'bigkmeans' and 'binit' may also be used with native R objects. 
   For 'tapply'-like functions, the bigtabulate package may also be helpful.
