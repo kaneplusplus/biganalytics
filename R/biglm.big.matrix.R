@@ -107,6 +107,42 @@ CreateNextDataFrameGenerator = function( formula, data, chunksize, fc,
   return(dataFrameGenerator(data, cols, levelList, getNextChunkFunc))
 }
 
+#' Use Thomas Lumley's ``biglm'' package with a ``big.matrix''
+#' @description This is a wrapper to Thomas Lumley's 
+#' \code{\link[biglm]{biglm}} package, allowing it to be used with massive 
+#' data stored in \code{\link[bigmemory]{big.matrix}} objects.
+#' @param formula a model \code{\link{formula}}.
+#' @param data a \code{\link[bigmemory]{big.matrix}}.
+#' @param chunksize an integer maximum size of chunks of data to process
+#' iteratively.
+#' @param fc either column indices or names of variables that are factors.}
+#' \item{\dots}{options associated with the \code{\link[biglm]{biglm}}
+#' @param getNextChunkFunc a function which retrieves chunk data
+#' @return an object of class \code{biglm}
+#' @rdname biglm.big.matrix
+#' @export
+#' @importFrom stats update
+#' @importFrom biglm bigglm biglm
+#' @aliases bigglm.big.matrix biglm.big.matrix
+#' @examples
+#' \dontrun{
+#' library(bigmemory)
+#' x <- matrix(unlist(iris), ncol=5)
+#' colnames(x) <- names(iris)
+#' x <- as.big.matrix(x)
+#' head(x)
+#' 
+#' silly.biglm <- biglm.big.matrix(Sepal.Length ~ Sepal.Width + Species,
+#'                                 data=x, fc="Species")
+#' summary(silly.biglm)
+#' 
+#' y <- data.frame(x[,])
+#' y$Species <- as.factor(y$Species)
+#' head(y)
+#' 
+#' silly.lm <- lm(Sepal.Length ~ Sepal.Width + Species, data=y)
+#' summary(silly.lm)
+#' }
 bigglm.big.matrix = function( formula, data, chunksize=NULL, ..., fc=NULL,
   getNextChunkFunc=NULL)
 {
@@ -116,7 +152,8 @@ bigglm.big.matrix = function( formula, data, chunksize=NULL, ..., fc=NULL,
     ... ))
 }
 
-
+#' @rdname biglm.big.matrix
+#' @export
 biglm.big.matrix = function( formula, data, chunksize=NULL, ..., fc=NULL,
   getNextChunkFunc=NULL)
 {
