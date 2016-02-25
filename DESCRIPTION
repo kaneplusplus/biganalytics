@@ -1,6 +1,6 @@
 Package: biganalytics
-Version: 1.1.13
-Date: 2015-10-20
+Version: 1.1.14
+Date: 2016-02-17
 Title: Utilities for 'big.matrix' Objects from Package 'bigmemory'
 Author: John W. Emerson <jayemerson@gmail.com> and Michael J. Kane
     <kaneplusplus@gmail.com>
