@@ -75,8 +75,10 @@ Rboolean tmin(double *x, index_type n, double *value,
   for (i = 0; i < n; i++) {
     if (ISNAN(x[i])) {/* Na(N) */
       if (!narm) {
-        if(s != NA_REAL) s = x[i]; /* so any NA trumps all NaNs */
-        if(!updated) updated = (Rboolean)TRUE;
+        // if(s != NA_REAL) s = x[i]; /* so any NA trumps all NaNs */
+        // if(!updated) updated = (Rboolean)TRUE;
+        *value = NA_REAL;
+        return((Rboolean)TRUE);
       }
     }
     else if (!updated || x[i] < s || !firstVal) {/* Never true if s is NA/NaN */
