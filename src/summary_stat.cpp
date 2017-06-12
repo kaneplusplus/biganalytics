@@ -65,31 +65,56 @@ Rboolean tmin(T *x, index_type n, int *value, Rboolean narm, T NA_VALUE)
 Rboolean tmin(double *x, index_type n, double *value,
                       Rboolean narm, double NA_VALUE)
 {
-  double s = NA_REAL /* -Wall */;
-  bool firstVal=false;
-  index_type i;
-//  Rboolean updated = (Rboolean)FALSE;
-  Rboolean updated = (Rboolean)TRUE;
+//   double s = NA_REAL /* -Wall */;
+//   bool firstVal=false;
+//   index_type i;
+// //  Rboolean updated = (Rboolean)FALSE;
+//   Rboolean updated = (Rboolean)TRUE;
+// 
+//   /* s = R_PosInf; */
+//   for (i = 0; i < n; i++) {
+//     if (ISNAN(x[i])) {/* Na(N) */
+//       if (!narm) {
+//         if(s != NA_REAL) s = x[i]; /* so any NA trumps all NaNs */
+//         if(!updated) updated = (Rboolean)TRUE;
+//         // *value = NA_REAL;
+//         // return((Rboolean)TRUE);
+//       }
+//     }
+//     else if (!updated || x[i] < s || !firstVal) {/* Never true if s is NA/NaN */
+//       s = x[i];
+//       if(!updated) updated = (Rboolean)TRUE;
+//       if (!firstVal) firstVal=true;
+//     }
+//   }
+//   *value = s;
+// 
+//   return(updated);
+  
+  double s = 0.0; /* -Wall */
+  Rboolean updated = (Rboolean)FALSE;
 
   /* s = R_PosInf; */
-  for (i = 0; i < n; i++) {
+  for (index_type i = 0; i < n; i++) {
     if (ISNAN(x[i])) {/* Na(N) */
       if (!narm) {
-        // if(s != NA_REAL) s = x[i]; /* so any NA trumps all NaNs */
-        // if(!updated) updated = (Rboolean)TRUE;
-        *value = NA_REAL;
-        return((Rboolean)TRUE);
-      }
-    }
-    else if (!updated || x[i] < s || !firstVal) {/* Never true if s is NA/NaN */
+        if(!ISNA(s)) s = x[i]; /* so any NA trumps all NaNs */
+          if(!updated) updated = (Rboolean)TRUE;
+      } // narm = TRUE then nothing (So, when all )
+    } // So, when for all i, (ISNAN && narm) = TRUE, then updated = FALSE
+    else if (!updated || x[i] < s) {/* Never true if s is NA/NaN */
       s = x[i];
       if(!updated) updated = (Rboolean)TRUE;
-      if (!firstVal) firstVal=true;
     }
   }
-  *value = s;
-
-  return(updated);
+  
+  if (!updated) {
+    *value = NA_REAL;
+    return((Rboolean)TRUE);
+  } else {
+    *value = s;
+    return(updated);
+  }
 }
 
 // --------------------- max -------------------------------------------
