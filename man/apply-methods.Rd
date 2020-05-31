@@ -5,7 +5,7 @@
 \alias{apply,big.matrix-method}
 \title{apply() for big.matrix objects}
 \usage{
-\S4method{apply}{big.matrix}(X, MARGIN, FUN, ...)
+\S4method{apply}{big.matrix}(X, MARGIN, FUN, ..., simplify)
 }
 \arguments{
 \item{X}{a big.matrix object.}
@@ -16,6 +16,8 @@ conforming to what you would expect from \code{apply()}.}
 \item{FUN}{the function to apply.}
 
 \item{\dots}{other parameters to pass to the FUN parameter.}
+
+\item{simplify}{see the base::apply documentation.}
 }
 \description{
 \link{apply} for \code{\link[bigmemory]{big.matrix}} objects.

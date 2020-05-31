@@ -12,6 +12,7 @@
 #' conforming to what you would expect from \code{apply()}.
 #' @param FUN the function to apply.
 #' @param \dots other parameters to pass to the FUN parameter.
+#' @param simplify see the base::apply documentation.
 #' @docType methods
 #' @export
 #' @examples
