@@ -22,7 +22,7 @@
 #' x[,] <- round(rnorm(10))
 #' biganalytics::apply(x, 1, mean)
 setMethod('apply', signature(X="big.matrix"),
-  function(X, MARGIN, FUN, ...) return(bmapply(X, MARGIN, FUN, ...)))
+  function(X, MARGIN, FUN, ..., simplify) return(bmapply(X, MARGIN, FUN, ...)))
 
 bmapply <- function(X, MARGIN, FUN, ...)
 {
