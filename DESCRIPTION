@@ -1,5 +1,5 @@
 Package: biganalytics
-Version: 1.1.15
+Version: 1.1.16
 Date: 2016-02-17
 Title: Utilities for 'big.matrix' Objects from Package 'bigmemory'
 Author: c(person("John", "Emerson", "W.", role=c("cre", "aut"), email="jayemerson@gmail.com"), person("Michael", "Kane", role = c("aut"), email = "kaneplusplus@gmail.com"), person("Saksham", "Chandra", role = "ctb"))
