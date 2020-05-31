@@ -63,4 +63,3 @@ a cluster *IF* the \code{big.matrix} is file-backed.  If used on a cluster
 with an in-RAM \code{big.matrix}, it will fail horribly.  We're considering 
 an extra option as an alternative to the current behavior.
 }
-

@@ -2,8 +2,8 @@
 % Please edit documentation in R/hello-biganalytics.R
 \docType{package}
 \name{biganalytics-package}
-\alias{biganalytics}
 \alias{biganalytics-package}
+\alias{biganalytics}
 \title{Utilities for big.matrix objects of package bigmemory}
 \description{
 Extend the \pkg{bigmemory} package with various analytics.  In addition
@@ -28,13 +28,12 @@ colmean(x)
 summary(x)
 apply(x, 1, mean)
 }
+\references{
+\url{http://www.bigmemory.org}
+}
 \author{
 Michael J. Kane and John W. Emerson.
 
 Maintainers Michael J. Kane <bigmemoryauthors@gmail.com>
 }
-\references{
-\url{http://www.bigmemory.org}
-}
 \keyword{package}
-

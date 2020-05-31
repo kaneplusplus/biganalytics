@@ -60,4 +60,3 @@ filled.contour(round(x.binit$rowcenters,2), round(x.binit$colcenters,2),
                x.binit$counts, xlab="Variable 1",
                ylab="Variable 2")
 }
-

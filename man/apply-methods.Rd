@@ -34,4 +34,3 @@ x <- big.matrix(5, 2, type="integer", init=0,
 x[,] <- round(rnorm(10))
 biganalytics::apply(x, 1, mean)
 }
-

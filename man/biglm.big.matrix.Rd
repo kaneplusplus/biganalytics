@@ -5,11 +5,23 @@
 \alias{biglm.big.matrix}
 \title{Use Thomas Lumley's ``biglm'' package with a ``big.matrix''}
 \usage{
-bigglm.big.matrix(formula, data, chunksize = NULL, ..., fc = NULL,
-  getNextChunkFunc = NULL)
+bigglm.big.matrix(
+  formula,
+  data,
+  chunksize = NULL,
+  ...,
+  fc = NULL,
+  getNextChunkFunc = NULL
+)
 
-biglm.big.matrix(formula, data, chunksize = NULL, ..., fc = NULL,
-  getNextChunkFunc = NULL)
+biglm.big.matrix(
+  formula,
+  data,
+  chunksize = NULL,
+  ...,
+  fc = NULL,
+  getNextChunkFunc = NULL
+)
 }
 \arguments{
 \item{formula}{a model \code{\link{formula}}.}
@@ -52,4 +64,3 @@ silly.lm <- lm(Sepal.Length ~ Sepal.Width + Species, data=y)
 summary(silly.lm)
 }
 }
-

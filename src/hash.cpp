@@ -43,7 +43,6 @@ SEXP MatrixHashRanges( BigMatrix *pMat, SEXP selectColumn )
 template<typename BMAccessorType>
 SEXP ColCountNA( BigMatrix *pMat, SEXP column )
 {
-  typedef typename BMAccessorType::value_type value_type;
   BMAccessorType mat(*pMat);
   index_type col = (index_type)Rf_asReal(column);
   index_type i, counter;

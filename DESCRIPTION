@@ -1,5 +1,5 @@
 Package: biganalytics
-Version: 1.1.14
+Version: 1.1.15
 Date: 2016-02-17
 Title: Utilities for 'big.matrix' Objects from Package 'bigmemory'
 Author: c(person("John", "Emerson", "W.", role=c("cre", "aut"), email="jayemerson@gmail.com"), person("Michael", "Kane", role = c("aut"), email = "kaneplusplus@gmail.com"), person("Saksham", "Chandra", role = "ctb"))
@@ -23,4 +23,4 @@ Copyright: (C) 2013 John W. Emerson and Michael J. Kane
 URL: http://www.bigmemory.org
 LazyLoad: yes
 Biarch: yes
-RoxygenNote: 5.0.1
+RoxygenNote: 7.1.0
