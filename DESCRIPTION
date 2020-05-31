@@ -1,7 +1,18 @@
 Package: biganalytics
-Version: 1.1.18
+Version: 1.1.20
 Title: Utilities for 'big.matrix' Objects from Package 'bigmemory'
-Author@R: c(person("John", "Emerson", "W.", role=c("cre", "aut"), email="jayemerson@gmail.com"), person("Michael", "Kane", role = c("aut"), email = "kaneplusplus@gmail.com"), person("Saksham", "Chandra", role = "ctb"))
+Authors@R: c(
+  person(given = "John W.", 
+         family = "Emerson", 
+         email="jayemerson@gmail.com", 
+         role=c("cre", "aut")), 
+  person(given = "Michael J.", 
+         family = "Kane", 
+         role = c("aut"), 
+         email = "kaneplusplus@gmail.com"), 
+  person(given = "Saksham", 
+         family =  "Chandra", 
+         role = "ctb"))
 Maintainer: Michael J. Kane <bigmemoryauthors@gmail.com>
 Contact: Jay and Mike <bigmemoryauthors@gmail.com>
 Depends:
