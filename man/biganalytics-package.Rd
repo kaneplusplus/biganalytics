@@ -14,21 +14,3 @@ to the more obvious summary statistics (see \code{\link{colmean}}, etc...),
 \code{big.matrix} objects.  Some of the functions may be used with native 
 \R objects, as well, providing gains in speed and memory-efficiency.
 }
-\examples{
-library(bigmemory)
-
-x <- big.matrix(5, 2, type="integer", init=0,
-                dimnames=list(NULL, c("alpha", "beta")))
-x
-x[,]
-x[,1] <- 1:5
-x[,]
-mean(x)
-colmean(x)
-summary(x)
-apply(x, 1, mean)
-}
-\references{
-\url{http://www.bigmemory.org}
-}
-\keyword{package}

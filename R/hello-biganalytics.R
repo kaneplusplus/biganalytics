@@ -11,22 +11,5 @@
 #' @name biganalytics-package
 #' @aliases biganalytics biganalytics-package
 #' @docType package
-#' @import methods
-#' Maintainers Michael J. Kane <bigmemoryauthors@gmail.com>
-#' @references \url{http://www.bigmemory.org}
-#' @keywords package
-#' @examples
-#' library(bigmemory)
-#' 
-#' x <- big.matrix(5, 2, type="integer", init=0,
-#'                 dimnames=list(NULL, c("alpha", "beta")))
-#' x
-#' x[,]
-#' x[,1] <- 1:5
-#' x[,]
-#' mean(x)
-#' colmean(x)
-#' summary(x)
-#' apply(x, 1, mean)
 #' @useDynLib biganalytics, .registration=TRUE
 NULL

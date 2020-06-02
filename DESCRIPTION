@@ -1,5 +1,5 @@
 Package: biganalytics
-Version: 1.1.20
+Version: 1.1.21
 Title: Utilities for 'big.matrix' Objects from Package 'bigmemory'
 Authors@R: c(
   person(given = "John W.", 
@@ -16,12 +16,13 @@ Authors@R: c(
 Maintainer: Michael J. Kane <bigmemoryauthors@gmail.com>
 Contact: Jay and Mike <bigmemoryauthors@gmail.com>
 Depends:
-    methods,
     stats,
     utils,
     bigmemory (>= 4.0.0),
     foreach,
     biglm
+Suggests:
+    methods
 LinkingTo: Rcpp, bigmemory, BH
 Description: Extend the 'bigmemory' package with various analytics.
     Functions 'bigkmeans' and 'binit' may also be used with native R objects.
