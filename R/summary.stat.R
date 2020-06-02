@@ -8,7 +8,6 @@
 #' @param cols a scalar or vector of column(s) to be summarized.
 #' @param na.rm if \code{TRUE}, remove \code{NA} values before summarizing.
 #' @param \dots options associated with the correspoding default \R function.
-#' @useDynLib biganalytics
 #' @details These functions essentially apply summary functions to each 
 #' column (or each specified column) of the 
 #' \code{\link[bigmemory]{big.matrix}} in turn.

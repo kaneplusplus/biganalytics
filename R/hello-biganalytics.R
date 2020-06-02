@@ -12,8 +12,6 @@
 #' @aliases biganalytics biganalytics-package
 #' @docType package
 #' @import methods
-#' @author Michael J. Kane and John W. Emerson.
-#' 
 #' Maintainers Michael J. Kane <bigmemoryauthors@gmail.com>
 #' @references \url{http://www.bigmemory.org}
 #' @keywords package
@@ -30,4 +28,5 @@
 #' colmean(x)
 #' summary(x)
 #' apply(x, 1, mean)
+#' @useDynLib biganalytics, .registration=TRUE
 NULL

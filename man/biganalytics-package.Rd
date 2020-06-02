@@ -31,9 +31,4 @@ apply(x, 1, mean)
 \references{
 \url{http://www.bigmemory.org}
 }
-\author{
-Michael J. Kane and John W. Emerson.
-
-Maintainers Michael J. Kane <bigmemoryauthors@gmail.com>
-}
 \keyword{package}
