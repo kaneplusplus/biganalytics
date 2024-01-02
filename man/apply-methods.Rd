@@ -5,7 +5,7 @@
 \alias{apply,big.matrix-method}
 \title{apply() for big.matrix objects}
 \usage{
-\S4method{apply}{big.matrix}(X, MARGIN, FUN, ..., simplify)
+\S4method{apply}{big.matrix}(X, MARGIN, FUN, ..., simplify = TRUE)
 }
 \arguments{
 \item{X}{a big.matrix object.}
