@@ -1,5 +1,5 @@
 Package: biganalytics
-Version: 1.1.21
+Version: 1.1.22
 Title: Utilities for 'big.matrix' Objects from Package 'bigmemory'
 Authors@R: c(
   person(given = "John W.", 
@@ -21,8 +21,7 @@ Depends:
     utils,
     bigmemory (>= 4.0.0),
     foreach,
-    biglm
-Suggests:
+    biglm,
     methods
 LinkingTo: Rcpp, bigmemory, BH
 Description: Extend the 'bigmemory' package with various analytics.
@@ -36,4 +35,4 @@ URL: http://www.bigmemory.org
 LazyLoad: yes
 Encoding: UTF-8
 Biarch: yes
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1

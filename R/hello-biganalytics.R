@@ -10,6 +10,6 @@
 #' 
 #' @name biganalytics-package
 #' @aliases biganalytics biganalytics-package
-#' @docType package
+#' _PACKAGE
 #' @useDynLib biganalytics, .registration=TRUE
 NULL
